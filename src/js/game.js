@@ -62,6 +62,7 @@ class Game {
   handleWrongLetter = function (target) {
     model.state.attempts++;
     keyboardView.changeLetterColor(target, 'btn-outline-danger');
+    lifeImgView.renderSpinner();
     lifeImgView.render(model.state);
   };
 }
