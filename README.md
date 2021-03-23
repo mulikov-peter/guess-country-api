@@ -4,8 +4,8 @@ In this project, I built a game that renders some random flags of countries from
 
 An App built with: 
 * HTML
-* Bootstrach
-* JS
+* Bootstrap - Bootswatch
+* JS (OOP, ES6, modules...)
 
 To run this project use npm:
 npm install
