@@ -50,11 +50,11 @@ const controlCountry = async function () {
 const controlHint = function (e) {
   const { country } = model.state;
 
-  // Check is it enough life for open hint
-  game.checkAEnoughLife();
-
   // Handle wrong letter:
   game.handleWrongLetter(e.target);
+
+  // Check is it enough life for open hint
+  game.checkAEnoughLife();
 
   // Click btn hint open letter or open capital
   hintView.update(country);
