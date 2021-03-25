@@ -27,9 +27,9 @@ class KeyboardView extends View {
       .join('');
   }
 
-  changeLetterColor(target, msg) {
+  changeLetterColor(target, className) {
     target.classList.remove('btn-secondary');
-    target.classList.add(msg);
+    target.classList.add(className);
     target.classList.add('disabled');
   }
 }
