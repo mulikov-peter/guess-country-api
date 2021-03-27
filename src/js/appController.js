@@ -25,20 +25,24 @@ const controlCountry = async function () {
 
     // Loading country
     await model.loadCountry(region);
+    const { country } = model.state;
+    lifeImgView.renderSpinner();
+    // Rendering message
     countryView.renderMessage(region);
-    // Rendering flag
-    countryView.render(model.state.country);
-
-    model.state.attempts = 0;
 
     // Rendering life image
     lifeImgView.render(model.state);
+
+    // Rendering flag
+    countryView.render(country);
+
+    model.state.attempts = 0;
 
     // Rendering hint buttons
     hintView.render();
 
     // Rendering secret word
-    secretWordView.render(model.state.country);
+    secretWordView.render(country);
 
     keyboardView.render();
   } catch (err) {

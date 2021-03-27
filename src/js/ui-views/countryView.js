@@ -14,7 +14,7 @@ class CountryView extends View {
       <img
         src="${this._data.flag}"
         alt="flag of country"
-        class="h-100 w-100"
+        class="h-100 w-100 img-fluid"
       />
   `;
   }
@@ -23,7 +23,7 @@ class CountryView extends View {
     const continent = region.replace('region/', '');
 
     this._clear();
-    this._messageEl.textContent = `You are guessing country from "${continent}" continent(s)`;
+    this._messageEl.textContent = `"${continent}"`;
   }
 }
 
