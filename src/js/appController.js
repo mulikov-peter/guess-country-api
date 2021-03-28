@@ -30,13 +30,13 @@ const controlCountry = async function () {
     // Rendering message
     countryView.renderMessage(region);
 
+    model.state.attempts = 0;
+
     // Rendering life image
     lifeImgView.render(model.state);
 
     // Rendering flag
     countryView.render(country);
-
-    model.state.attempts = 0;
 
     // Rendering hint buttons
     hintView.render();
