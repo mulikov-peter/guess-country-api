@@ -15,13 +15,7 @@ export default class View {
 
   // Render spinner
   renderSpinner() {
-    const markup = `
-      <div class="spinner d-flex justify-content-center position-absolute top-50 start-50 translate-middle">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div> 
-    `;
+    const markup = `    `;
     this._clear();
     this._parentEl.insertAdjacentHTML('afterbegin', markup);
   }

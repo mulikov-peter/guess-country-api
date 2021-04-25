@@ -1,4 +1,4 @@
-﻿import { async } from 'regenerator-runtime';
+import { async } from 'regenerator-runtime';
 
 const TIMEOUT_SEC = 10;
 
@@ -44,26 +44,31 @@ export const getEncodedCounryName = countryName => {
 
   const encodedCountryName = countryName
     .split('')
-    .map(l => (characters.includes(l) ? l : '-'));
+    .map(el => (characters.includes(el) ? el : '-'));
 
   return encodedCountryName;
 };
 
-export const openModal = message => {
-  document.querySelector('#myModal h2').textContent = message;
-  // Bootstrap open modal window
-  $('#myModal').modal({
-    backdrop: 'static',
-  });
+// NAVIGATION
+const navCheckBox = document.querySelector('.navigation__checkbox');
+const navList = document.querySelector('.navigation__list');
+
+navList.addEventListener('click', e => {
+  const li = e.target.closest('.navigation__link');
+  if (!li) return;
+  navCheckBox.checked = !navCheckBox.checked;
+});
+
+// Open popup
+export const openPopup = message => {
+  const popup = document.querySelector('.popup');
+  document.querySelector('.message').textContent = message;
+  popup.classList.remove('hidden');
+  popup.classList.add('active');
 };
 
-$('.navbar-nav li a').on('click', function () {
-  if (!$(this).hasClass('dropdown-toggle')) {
-    $('.navbar-collapse').collapse('hide');
-  }
-});
+// Play again
 
-$('.navbar-nav a').on('click', function () {
-  $('.navbar-nav').find('li.active').removeClass('active');
-  $(this).parent('li').addClass('active');
-});
+document
+  .querySelector('.play-again')
+  .addEventListener('click', () => location.reload());

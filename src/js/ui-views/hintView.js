@@ -1,42 +1,51 @@
-import game from '../game.js';
 import View from './View.js';
+import game from '../game';
 
 class HintView extends View {
-  _parentEl = document.querySelector('.hint');
+  _parentEl = document.querySelector('.keyboard-hints');
   _target = '';
 
   addHandlerUseHint(handler) {
     this._parentEl.addEventListener('click', e => {
-      const hint = e.target.closest('.btn-hint');
+      const hint = e.target.closest('.keyboard__item');
 
       if (!hint) return;
 
+      hint.firstElementChild.firstElementChild.checked = true;
+
       this._target = hint;
 
-      handler(e);
+      handler();
       e.preventDefault();
     });
   }
 
   _generateMarkup() {
     return `
-    <button type="button"
-      class="btn btn-secondary w-40 btn-hint hint-capital">
-      Show Capital
-    </button>
-    <button type="button"
-      class="btn btn-secondary w-40 btn-hint hint-letter">
-      Open letter
-    </button>
+      <li class='keyboard__item hint-capital'>
+        <label>
+          <input type="checkbox" />
+          <div class="icon-box">
+            <p class='capital'>show capital</p>
+          </div>
+        </label>
+      </li>
+      <li class='keyboard__item hint-letter'>
+        <label>
+          <input type="checkbox" />
+          <div class="icon-box">
+            <p>open letter</p>
+          </div>
+        </label>
+      </li>
   `;
   }
 
-  update(country) {
-    // Click open capital
-    if (this._target.classList.contains('hint-capital'))
-      this._target.textContent = country.capital;
+  showHint(country) {
+    if (this._target.classList.contains('hint-capital')) {
+      document.querySelector('.capital').textContent = country.capital;
+    }
 
-    // Click open letter
     if (this._target.classList.contains('hint-letter')) {
       const index = country.encodedName.indexOf('-');
       const targetLetter = country.countryName[index];
@@ -45,19 +54,14 @@ class HintView extends View {
         if (letter === targetLetter) {
           // Get button of letter for mark it like correct
           const btnLetter = document.querySelector(`#${letter}`);
+
           // Open letter
           game.openLetter(btnLetter, i, letter);
-          // Check if won
-          game.checkWin();
         }
       });
-    }
-  }
 
-  disableHintBtn() {
-    Array.from(this._parentEl.children).forEach(btn =>
-      btn.classList.add('disabled')
-    );
+      this._target.style.display = 'none';
+    }
   }
 }
 

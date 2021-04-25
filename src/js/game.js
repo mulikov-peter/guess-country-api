@@ -2,25 +2,25 @@ import * as model from './model.js';
 
 import hintView from './ui-views/hintView.js';
 import keyboardView from './ui-views/keyboardView.js';
-import lifeImgView from './ui-views/lifeImgView.js';
-import secretWordView from './ui-views/secretWord.View.js';
-import { openModal } from './helpers.js';
+import scoreView from './ui-views/scoreView.js';
+import secretWordView from './ui-views/secretWordView.js';
+import { openPopup } from '../js/helpers';
 
 class Game {
-  checkIsLetterCorrect = function (e) {
+  checkIsLetterCorrect = function (letterEl) {
     const { country } = model.state;
 
     let correct = false;
     [...country.countryName].forEach((letter, i) => {
-      if (e.target.id === letter) {
+      if (letterEl.id === letter) {
         correct = true;
-        this.openLetter(e.target, i, letter);
+        this.openLetter(letterEl, i, letter);
         this.checkWin();
       }
     });
 
     if (!correct) {
-      this.handleWrongLetter(e.target);
+      this.handleWrongLetter(letterEl);
       this.checkLost();
     }
   };
@@ -28,12 +28,14 @@ class Game {
   // Open letter on display
   openLetter = function (target, i, letter) {
     const { country } = model.state;
-    // Change color of letter
-    keyboardView.changeLetterColor(target, 'btn-outline-success');
+    //Add class to letter and change color
+    keyboardView.changeLetterColor(target, 'correct');
     // Open correct letter
     country.encodedName.splice(i, 1, letter);
     // Update display encoded name
     secretWordView.render(country);
+
+    this.checkWin();
   };
 
   // Check if won
@@ -41,29 +43,25 @@ class Game {
     const { country } = model.state;
     if (country.countryName === country.encodedName.join('')) {
       // Opem modal window - You win
-      openModal('You won!!!');
+      openPopup('You won!!!');
     }
   };
 
   // Check if lost
   checkLost = function () {
-    if (model.state.attempts >= 9) {
+    if (model.state.attempts >= 6) {
       // Open modal window - You lost
-      openModal('You lost :(');
+      openPopup('You lost :(');
     }
   };
 
-  // Check is it enough life
-  checkAEnoughLife = function () {
-    if (model.state.attempts > 7) hintView.disableHintBtn();
-  };
-
-  // Increase attempts, change color of letter, update life image:
+  // Increase attempts, change color of letter, update score:
   handleWrongLetter = function (target) {
+    if (target.classList.contains('wrong')) return;
+
     model.state.attempts++;
-    keyboardView.changeLetterColor(target, 'btn-outline-danger');
-    lifeImgView.renderSpinner();
-    lifeImgView.render(model.state);
+    keyboardView.changeLetterColor(target, 'wrong');
+    scoreView.updateScores();
   };
 }
 

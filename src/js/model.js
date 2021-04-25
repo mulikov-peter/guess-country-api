@@ -15,7 +15,7 @@ const createCountryObject = function (data) {
   const randomCountry = getRandomCountry(data);
   const correctCountryName = getCorrectCountryName(data[randomCountry]);
   const encodedCountryName = getEncodedCounryName(correctCountryName);
-  
+
   return {
     countryName: correctCountryName,
     encodedName: encodedCountryName,

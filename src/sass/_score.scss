@@ -1,0 +1,17 @@
+.score {
+  font-size: 4rem;
+  color: crimson;
+  text-align: center;
+
+  @media (orientation: landscape) and (max-width: $bp-medium-1) {
+    font-size: 2.8rem;
+  }
+
+  @media (orientation: portrait) and (max-width: $bp-medium-2) {
+    font-size: 2.8rem;
+  }
+}
+
+.fa-heart:not(:last-child) {
+  margin-right: 1rem;
+}

@@ -5,7 +5,7 @@ class SecretWordView extends View {
 
   _generateMarkup() {
     return `
-      <h4 class="secret-word">${this._data.encodedName.join('')}</h4>
+      <h1 class="secret-word">${this._data.encodedName.join('')}</h1>
     `;
   }
 }
